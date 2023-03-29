@@ -14,7 +14,7 @@ const initializeDbAndServer = async () => {
     db = await open({ filename: dbPath, driver: sqlite3.Database });
 
     app.listen(3000, () => {
-      console.log("Server running at http://localhost3000/");
+      console.log("Server running at http://localhost:3000/");
     });
   } catch (e) {
     console.log(`Server error is ${e.message}`);
@@ -44,36 +44,37 @@ app.get("/todos/", async (request, response) => {
   const { search_q = "", priority, status } = request.query;
   console.log(request.query);
 
-  //   switch(true){
-  //       case hasPriorityAndStatus(request.query); //if this is true then below query is taken in the code
-  //       getTodosQuery = `
-  //       SELECT * FROM todo WHERE todo LIKE '%${search_q}%' AND
-  //       priority = ${priority} AND status = ${status}`;
-  //      break;
+  switch (true) {
+    case hasPriorityAndStatus(request.query): //if this is true then below query is taken in the code
+      getTodosQuery = `
+        SELECT * FROM todo WHERE todo LIKE '%${search_q}%' AND
+        priority = ${priority} AND status = ${status}`;
+      console.log(getTodosQuery);
+      break;
 
-  //     case hasPriority(request.query);
-  //     getTodosQuery = `
-  //       SELECT * FROM todo WHERE todo LIKE '%${search_q}%' AND
-  //       priority = ${priority}` ;
-  //      break;
+    case hasPriority(request.query):
+      getTodosQuery = `
+        SELECT * FROM todo WHERE todo LIKE '%${search_q}%' AND
+        priority = ${priority}`;
+      break;
 
-  //      case hasStatus(request.query);
-  //       getTodosQuery = `
-  //       SELECT * FROM todo WHERE todo LIKE '%${search_q}%' AND
-  //       status = ${status}`;
-  //      break;
+    case hasStatus(request.query):
+      getTodosQuery = `
+        SELECT * FROM todo WHERE todo LIKE '%${search_q}%' AND
+        status = ${status}`;
+      break;
 
-  //        default:
-  //    getTodosQuery = `
-  //    SELECT
-  //     *
-  //    FROM
-  //     todo
-  //    WHERE
-  //     todo LIKE '%${search_q}%';`;
-  //   }
-  //   data  = await db.all(getTodosQuery);
-  //   response.send(data);
+    default:
+      getTodosQuery = `
+     SELECT
+      *
+     FROM
+      todo
+     WHERE
+      todo LIKE '%${search_q}%';`;
+  }
+  data = await db.all(getTodosQuery);
+  response.send(data);
 });
 
 app.get("/todos/:todoId/", async (request, response) => {
