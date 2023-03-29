@@ -1,1 +1,16 @@
 GET http://localhost3000/todos/?status=TO%20DO
+
+
+###
+GET http://localhost3000/todos/2/
+
+###
+POST http://localhost3000/todos/
+Content-Type: application/json
+
+{
+  "id": 10,
+  "todo": "Finalize event theme",
+  "priority": "LOW",
+  "status": "TO DO"
+}

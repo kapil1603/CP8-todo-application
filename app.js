@@ -75,3 +75,30 @@ app.get("/todos/", async (request, response) => {
   //   data  = await db.all(getTodosQuery);
   //   response.send(data);
 });
+
+app.get("/todos/:todoId/", async (request, response) => {
+  const { todoId } = request.params;
+  const getTodoId = `
+    SELECT * FROM todo WHERE id = ${todoId}`;
+  const myId = await db.get(getTodoId);
+  response.send(myId);
+});
+
+app.post("/todos/", async (request, response) => {
+  const { id, todo, priority, status } = request.body;
+  const createTodoId = `
+    INSERT INTO todo (id, todo, priority, status)
+    VALUES  (${id},'${todo}','${priority}','${status}')`;
+  const createId = await db.run(createTodoId);
+  response.send("Todo Successfully Added");
+});
+
+app.put("/todos/:todoId/", async (request, response) => {
+  const { todoId } = request.params;
+  const { status } = request.body;
+  const createTodoId = `
+    INSERT INTO todo (id, todo, priority, status)
+    VALUES  (${id},'${todo}','${priority}','${status}')`;
+  const createId = await db.run(createTodoId);
+  response.send("Todo Successfully Added");
+});
