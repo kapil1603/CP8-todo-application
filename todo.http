@@ -22,3 +22,27 @@ Content-Type: application/json
   "priority": "LOW",
   "status": "TO DO"
 }
+
+
+
+###
+PUT http://localhost:3000/todos/2/
+Content-Type: application/json
+
+{ "status": "DONE" }
+
+###
+PUT http://localhost:3000/todos/2/
+Content-Type: application/json
+
+{ "priority": "HIGH" }
+
+###
+PUT http://localhost:3000/todos/2/
+Content-Type: application/json
+
+{ "todo": "Some task" }
+
+###
+DELETE http://localhost:3000/todos/10/
+
