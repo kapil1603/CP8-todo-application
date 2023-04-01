@@ -56,12 +56,14 @@ app.get("/todos/", async (request, response) => {
       getTodosQuery = `
         SELECT * FROM todo WHERE todo LIKE '%${search_q}%' AND
         priority = ${priority}`;
+      console.log(getTodosQuery);
       break;
 
     case hasStatus(request.query):
       getTodosQuery = `
         SELECT * FROM todo WHERE todo LIKE '%${search_q}%' AND
         status = ${status}`;
+      console.log(getTodosQuery);
       break;
 
     default:
