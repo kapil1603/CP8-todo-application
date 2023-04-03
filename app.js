@@ -55,14 +55,14 @@ app.get("/todos/", async (request, response) => {
     case hasPriority(request.query):
       getTodosQuery = `
         SELECT * FROM todo WHERE todo LIKE '%${search_q}%' AND
-        priority = ${priority}`;
+        priority = '${priority}'`;
       console.log(getTodosQuery);
       break;
 
     case hasStatus(request.query):
       getTodosQuery = `
         SELECT * FROM todo WHERE todo LIKE '%${search_q}%' AND
-        status = ${status}`;
+        status = '${status}'`;
       console.log(getTodosQuery);
       break;
 
@@ -73,9 +73,11 @@ app.get("/todos/", async (request, response) => {
      FROM
       todo
      WHERE
-      todo LIKE '%${search_q}%';`;
+      todo LIKE '%${search_q}%';
+      `;
   }
   data = await db.all(getTodosQuery);
+  console.log(data);
   response.send(data);
 });
 
