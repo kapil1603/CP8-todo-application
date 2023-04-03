@@ -48,7 +48,7 @@ app.get("/todos/", async (request, response) => {
     case hasPriorityAndStatus(request.query): //if this is true then below query is taken in the code
       getTodosQuery = `
         SELECT * FROM todo WHERE todo LIKE '%${search_q}%' AND
-        priority = ${priority} AND status = ${status}`;
+        priority = '${priority}' AND status = '${status}'`;
       console.log(getTodosQuery);
       break;
 
